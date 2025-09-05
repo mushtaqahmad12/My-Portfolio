@@ -1,6 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Mail, Github, Linkedin, Download, Menu, X, ExternalLink, Code2, Rocket, Facebook, Instagram } from "lucide-react";
+import RainbowCursor from "./components/RainbowCurser";
+import ProjectsCard from "./components/ProjectsCard";
+
+
 
 // ----- Simple data you can edit quickly -----
 const PROFILE = {
@@ -35,44 +39,7 @@ const EDUCATION = [
   "Diploma (HDSE) — Aptech (Feb 2024 - Present)",
 ];
 
-const PROJECTS = [
-  {
-    title: "MoodMusic",
-    description: "Built a music streaming application using Laravel and integrated Youtube API to fetch and play songs dynamically. Implemented search, playlist management and smooth UI.",
-    tech: ["Laravel", "Mysql", "Youtube API"],
-    live: "#",
-    repo: "#",
-  },
-    {
-    title: "CRM Application",
-    description: "Created a Customer Relationship Management system to manage leads, clients and sales. Implemented user authentication,reporting dashbourd and role based access.",
-    tech: ["React.js", "TailwindCSS", "LocalStorage"],
-    live: "#",
-    repo: "#",
-  },
-  {
-    title: "C.R.U.D",
-    description: "Developed a complete CRUD (Create, Read, Update, Delete, Live search) system with user-friendly interface and database integration. ",
-    tech: ["Bootstrap", "Laravel", "MySQL"],
-    live: "#",
-    repo: "#",
-  },
-  {
-    title: "SoundBlast",
-    description: "Designed and developed a modern music platform with interface UI, responsive layout and audio management features.",
-    tech: ["HTML", "CSS3", "JavaScript", "AJAX"],
-    live: "#",
-    repo: "#",
-  },
-   {
-    title: "CRM System",
-    description: "Created a Customer Relationship Management system to manage leads, clients and sales. Implemented user authentication,reporting dashbourd and role based access.",
-    tech: ["Laravel", "Bootstrap", "Mysql"],
-    live: "#",
-    repo: "#",
-  },
-  
-];
+
 
 // ----- Helpers -----
 const spring = (value) => ({
@@ -113,11 +80,11 @@ const typed = safeTyped?.replace(/undefined/gi, "");
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 20, restDelta: 0.001 });
 
-
   useEffect(() => {
     if (dark) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
   }, [dark]);
+
 
   const navItems = useMemo(() => ([
     { label: "Home", href: "#home" },
@@ -129,13 +96,8 @@ const typed = safeTyped?.replace(/undefined/gi, "");
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-slate-100 selection:bg-indigo-200 selection:text-slate-900">
-      {/* Global styles */}
-      <style>{`
-        html { scroll-behavior: smooth; }
-        .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.6); }
-        .glass-dark { backdrop-filter: blur(10px); background: rgba(2,6,23,0.6); }
-      `}</style>
-
+   <RainbowCursor/>
+     
       {/* Top progress bar */}
       <motion.div style={{ scaleX }} className="fixed left-0 right-0 top-0 h-1 origin-left bg-indigo-500 z-50" />
 
@@ -152,9 +114,15 @@ const typed = safeTyped?.replace(/undefined/gi, "");
               {navItems.map((n) => (
                 <a key={n.href} href={n.href} className="hover:opacity-80">{n.label}</a>
               ))}
-              <a href={PROFILE.resumeUrl} className="inline-flex items-center gap-2 rounded-xl px-3 py-2 bg-indigo-600 text-white hover:bg-indigo-500">
-                <Download className="h-4 w-4" /> Resume
-              </a>
+              
+                <motion.a
+            href={PROFILE.resumeUrl}
+            whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+           whileTap={{ scale: 0.9 }}
+             className="inline-flex items-center gap-2 rounded-xl px-3 py-2 bg-indigo-600 text-white hover:bg-indigo-500">
+        <Download className="h-4 w-4" /> Resume
+        </motion.a>
+
               <button onClick={() => setDark((d) => !d)} className="rounded-xl px-3 py-2 border border-slate-300 dark:border-slate-700">
                 {dark ? "Light" : "Dark"}
               </button>
@@ -200,16 +168,44 @@ const typed = safeTyped?.replace(/undefined/gi, "");
             <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-800 px-3 py-1 text-sm w-fit">
               <Code2 className="h-4 w-4" /> {PROFILE.role}
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
-              Hi, I’m {PROFILE.name}
-            </h1>
-            <p className="text-lg opacity-90 min-h-[2.5rem]">
-             {typed} 
+            
+
+ <motion.h1
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-6xl font-bold mb-4"
+      >
+        Hi, I’m {PROFILE.name}
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="text-xl text-gray-200"
+      >
+     {typed} 
               <span className="inline-block w-1.5 h-6 align-middle bg-indigo-500 ml-1 animate-pulse" />
-            </p>
+      </motion.p>
+
             <div className="flex items-center gap-3">
-              <a href="#projects" className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500">View Projects</a>
-              <a href="#contact" className="rounded-2xl px-5 py-3 border border-slate-300 dark:border-slate-700">Contact Me</a>
+<motion.a
+href="#projects"
+  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+  whileTap={{ scale: 0.9 }}
+className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500"
+>
+  View Projects
+</motion.a>
+<motion.a
+href="#contact"
+  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+  whileTap={{ scale: 0.9 }}
+className="rounded-2xl px-5 py-3 border border-slate-300 dark:border-slate-700"
+>
+  Contact Me
+</motion.a>
             </div>
             <div className="flex items-center gap-4 pt-2">
               <a className="inline-flex items-center gap-2 hover:opacity-80" href={`mailto:${PROFILE.email}`}>
@@ -268,14 +264,22 @@ robust software solutions, building full-stack applications, and integrating API
 learn new technologies to meet modern development challenges.
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 gap-4 shadow-sm bg-white/60 dark:bg-slate-900/60 backdrop-blur">
-            <h3 className="font-semibold mb-3">Quick Info</h3>
+
+<motion.div
+
+  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+  whileTap={{ scale: 0.9 }}
+className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 gap-4 shadow-sm bg-white/60 dark:bg-slate-900/60 backdrop-blur"
+>
+  <h3 className="font-semibold mb-3">Quick Info</h3>
             <ul className="space-y-2 text-sm">
               <li><span className="opacity-70"> Location: </span>{PROFILE.location}</li>
               <li><span className="opacity-70"> Email:  </span> {PROFILE.email}</li>
               <li><span className="opacity-70"> Open to Work: </span> Yes</li>
             </ul>
-          </div>
+</motion.div>
+
+        
         </motion.div>
       </Section>
 
@@ -284,7 +288,8 @@ learn new technologies to meet modern development challenges.
         <h2 className="text-3xl font-bold mb-8">Skills</h2>
         <div className="flex flex-wrap gap-3">
           {SKILLS.map((s) => (
-            <motion.span key={s} whileHover={{ y: -3 }} className="rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm">
+            <motion.span key={s} whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+            whileTap={{ scale: 0.9 }} className="rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm">
               {s}
             </motion.span>
           ))}
@@ -296,49 +301,23 @@ learn new technologies to meet modern development challenges.
         <h2 className="text-3xl font-bold mb-8">Education</h2>
         <div className="flex flex-wrap gap-3">
           {EDUCATION.map((s) => (
-            <motion.span key={s} whileHover={{ y: -3 }} className="rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm">
+            <motion.span key={s}  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+            whileTap={{ scale: 0.9 }} className="rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm">
               {s}
             </motion.span>
           ))}
         </div>
       </Section>
 
-      {/* PROJECTS */}
-      <Section id="projects" className="mx-auto max-w-6xl px-4 py-20">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold">Projects</h2>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROJECTS.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              whileHover={{ y: -6 }}
-              className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm bg-white/60 dark:bg-slate-900/60 backdrop-blur"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="font-semibold text-lg">{p.title}</h3>
-                  <p className="text-sm opacity-80 mt-1">{p.description}</p>
-                </div>
-                <ExternalLink className="h-5 w-5 opacity-60" />
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.tech.map((t) => (
-                  <span key={t} className="text-xs rounded-lg px-2 py-1 border border-slate-200 dark:border-slate-800">{t}</span>
-                ))}
-              </div>
-              <div className="mt-5 flex items-center gap-3 text-sm">
-                <a href={p.live} target="_blank" rel="noreferrer" className="rounded-xl px-3 py-2 bg-indigo-600 text-white hover:bg-indigo-500">Live</a>
-                <a href={p.repo} target="_blank" rel="noreferrer" className="rounded-xl px-3 py-2 border border-slate-300 dark:border-slate-700">Code</a>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
+     {/* PROJECTS */}
+<Section id="projects" className="mx-auto max-w-6xl px-4 py-20">
+  <div className="flex items-center justify-between mb-8">
+    <h2 className="text-3xl font-bold">Projects</h2>
+  </div>
+
+  <ProjectsCard />
+</Section>
+
 
       {/* CONTACT */}
       <Section id="contact" className="mx-auto max-w-6xl px-4 py-20">
@@ -383,7 +362,13 @@ learn new technologies to meet modern development challenges.
             <input name="name" required placeholder="Your name" className="rounded-xl px-4 py-3 border border-slate-300 dark:border-slate-700 bg-transparent" />
             <input name="from" required type="email" placeholder="Your email" className="rounded-xl px-4 py-3 border border-slate-300 dark:border-slate-700 bg-transparent" />
             <textarea name="message" required rows={5} placeholder="Message" className="rounded-xl px-4 py-3 border border-slate-300 dark:border-slate-700 bg-transparent" />
-            <button className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500">Send</button>
+           
+           <motion.button
+  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+  whileTap={{ scale: 0.9 }}
+  className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500">
+  Send
+</motion.button>
           </motion.form>
         </div>
       </Section>
