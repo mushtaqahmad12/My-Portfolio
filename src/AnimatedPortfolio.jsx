@@ -3,6 +3,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { Mail, Github, Linkedin, Download, Menu, X, ExternalLink, Code2, Rocket, Facebook, Instagram } from "lucide-react";
 import RainbowCursor from "./components/RainbowCurser";
 import ProjectsCard from "./components/ProjectsCard";
+import QuickInfo from "./components/QuickInfo";
 
 
 
@@ -17,7 +18,7 @@ const PROFILE = {
     facebook: "https://web.facebook.com/mushtaq.king.771/",
     instagram:"https://www.instagram.com/mushtaq_ahmad__01/",
     github: "https://github.com/mushtaqahmad12",
-    linkedin: "www.linkedin.com/in/mushtaq-ahmad-0b4a31279",
+    linkedin: "https://linkedin.com/in/mushtaq-ahmad-0b4a31279",
   },
   resumeUrl: "https://drive.google.com/file/d/1hDS0a-gn9Z8plBhWsTYtceoIsUF6-pUB/view?usp=sharing", // paste a drive/vercel link later
 };
@@ -96,11 +97,11 @@ const typed = safeTyped?.replace(/undefined/gi, "");
   ]), []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-slate-100 selection:bg-indigo-200 selection:text-slate-900">
+    <div className="min-h-screen bg-black text-white  ">
    <RainbowCursor/>
      
       {/* Top progress bar */}
-      <motion.div style={{ scaleX }} className="fixed left-0 right-0 top-0 h-1 origin-left bg-indigo-500 z-50" />
+      <motion.div style={{ scaleX }} className="fixed left-0 right-0 top-0 h-1 origin-left bg-gradient-to-r from-[#dd247780] to-[#2fa1ff] z-50" />
 
       {/* NAVBAR */}
       <header className="sticky top-0 z-40">
@@ -120,7 +121,8 @@ const typed = safeTyped?.replace(/undefined/gi, "");
             href={PROFILE.resumeUrl}
             whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
            whileTap={{ scale: 0.9 }}
-             className="inline-flex items-center gap-2 rounded-xl px-3 py-2 bg-indigo-600 text-white hover:bg-indigo-500">
+             className="inline-flex items-center gap-2  px-3 py-2 text-white  rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20">
         <Download className="h-4 w-4" /> Resume
         </motion.a>
 
@@ -143,7 +145,8 @@ const typed = safeTyped?.replace(/undefined/gi, "");
                   </a>
                 ))}
                 <div className="flex items-center gap-3 pt-3">
-                  <a href={PROFILE.resumeUrl} className="inline-flex items-center gap-2 rounded-xl px-3 py-2 bg-indigo-600 text-white hover:bg-indigo-500">
+                  <a href={PROFILE.resumeUrl} className="inline-flex items-center gap-2 px-3 py-2 text-white font-bold rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20">
                     <Download className="h-4 w-4" /> Resume
                   </a>
                   <button onClick={() => setDark((d) => !d)} className="rounded-xl px-3 py-2 border border-slate-300 dark:border-slate-700">
@@ -193,9 +196,10 @@ const typed = safeTyped?.replace(/undefined/gi, "");
             <div className="flex items-center gap-3">
 <motion.a
 href="#projects"
-  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+  whileHover={{ scale: 1.1,  boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
   whileTap={{ scale: 0.9 }}
-className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500"
+className="px-5 py-3  text-white font-bold rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20"
 >
   View Projects
 </motion.a>
@@ -203,7 +207,8 @@ className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500"
 href="#contact"
   whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
   whileTap={{ scale: 0.9 }}
-className="rounded-2xl px-5 py-3 border border-slate-300 dark:border-slate-700"
+className="px-5 py-3 text-white font-bold rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20"
 >
   Contact Me
 </motion.a>
@@ -234,16 +239,23 @@ className="rounded-2xl px-5 py-3 border border-slate-300 dark:border-slate-700"
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-square rounded-3xl shadow-xl overflow-hidden bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20 flex items-center justify-center">
-              <motion.img
-                src="/Image/profile.png"
-                alt="Profile"
-                className="h-full w-full object-contain rounded-3xl"
-                initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              />
-            </div>
+           {/* image wrapper */}
+<div className="relative aspect-square rounded-3xl shadow-xl overflow-hidden bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20 flex items-center justify-center">
+  <motion.img
+    src="/Image/profile.png"
+    alt="Profile"
+    className="h-full w-full object-contain rounded-3xl"
+    initial={{ scale: 1 }}
+    animate={{ scale: [1, 1.05, 1] }}
+    transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+  />
+
+  {/* QuickInfo as absolute popup */}
+  <div className="absolute top-3 right-3">
+    <QuickInfo />
+  </div>
+</div>
+
           </motion.div>
         </div>
       </Section>
@@ -265,22 +277,6 @@ robust software solutions, building full-stack applications, and integrating API
 learn new technologies to meet modern development challenges.
             </p>
           </div>
-
-<motion.div
-
-  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
-  whileTap={{ scale: 0.9 }}
-className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 gap-4 shadow-sm bg-white/60 dark:bg-slate-900/60 backdrop-blur"
->
-  <h3 className="font-semibold mb-3">Quick Info</h3>
-            <ul className="space-y-2 text-sm">
-              <li><span className="opacity-70"> Location: </span>{PROFILE.location}</li>
-              <li><span className="opacity-70"> Email:  </span> {PROFILE.email}</li>
-              <li><span className="opacity-70"> Open to Work: </span> Yes</li>
-            </ul>
-</motion.div>
-
-        
         </motion.div>
       </Section>
 
@@ -377,7 +373,8 @@ className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 gap-4 s
            <motion.button
   whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
   whileTap={{ scale: 0.9 }}
-  className="rounded-2xl px-5 py-3 bg-indigo-600 text-white hover:bg-indigo-500">
+  className="px-5 py-3 text-white font-bold rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20">
   Send
 </motion.button>
           </motion.form>

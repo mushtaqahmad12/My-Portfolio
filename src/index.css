@@ -3,13 +3,12 @@
 
 
  html { scroll-behavior: smooth; }
-        .glass { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.521); }
-        .glass-dark { backdrop-filter: blur(10px); background: rgba(2, 6, 23, 0.479); }
+        .glass { backdrop-filter: blur(10px); color: black!important; background: rgba(255, 255, 255, 0.521); }
+        .glass-dark { backdrop-filter: blur(10px); background: rgba(0, 0, 0, 0.479); }
 
   body {
   cursor: url('/cursor.png') 16 16, auto;
-  
-  background: #030018;  /* fallback for old browsers */
+  background: black;  /* fallback for old browsers */
   
 }
 
@@ -29,12 +28,9 @@ button:hover, a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #442fff65, #dd247780);
+  background: linear-gradient(180deg, #2f5fff94, #e21e7680);
   border-radius: 10px;
   box-shadow: 0 0 10px #3441fcff;  /* glow */
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #1ef7b6ff, #0c37f7ff);
-  box-shadow: 0 0 20px #00aeffff;  /* glow on hover */
-}
+

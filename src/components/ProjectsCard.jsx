@@ -86,7 +86,7 @@ export default function ProjectsCard() {
               scale: 1.03,
               boxShadow: "0px 0px 25px rgba(99,102,241,0.4)",
             }}
-            className="rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm bg-white/70 dark:bg-slate-900/70 backdrop-blur"
+            className="rounded-2xl p-5 bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20 "
           >
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -116,7 +116,8 @@ export default function ProjectsCard() {
                   boxShadow: "0px 0px 15px rgba(59,130,246,0.6)",
                 }}
                 whileTap={{ scale: 0.9 }}
-                className="rounded-xl px-3 py-2 bg-indigo-600 text-white hover:bg-indigo-500"
+                className=" px-3 py-2 text-white font-bold rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20"
               >
                 Github Code
               </motion.a>
@@ -130,7 +131,8 @@ export default function ProjectsCard() {
                     boxShadow: "0px 0px 15px rgba(255,165,0,0.6)",
                   }}
                   whileTap={{ scale: 0.9 }}
-                  className="rounded-xl px-3 py-2 border-1 border-blue-500 text-white hover:bg-indigo-600"
+                  className="px-3 py-2 text-white font-bold rounded-full 
+  bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20"
                 >
                   View UI
                 </motion.button>
