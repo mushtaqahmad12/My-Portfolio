@@ -16,7 +16,7 @@ export default function RainbowCursor() {
  
       {/* Outer Glow (lagging trail) */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-40 h-40 rounded-full blur-3xl opacity-40 mix-blend-screen z-40"
+        className="pointer-events-none fixed top-0 left-0 w-20 h-20 rounded-full blur-2xl opacity-50 mix-blend-screen z-40"
         animate={{
           x: pos.x - 80,
           y: pos.y - 80,
@@ -35,7 +35,7 @@ export default function RainbowCursor() {
 
       {/* Middle Glow */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-28 h-28 rounded-full blur-2xl opacity-60 mix-blend-screen z-50"
+        className="pointer-events-none fixed top-0 left-0 w-20 h-20 rounded-full blur-2xl opacity-50 mix-blend-screen z-50"
         animate={{
           x: pos.x - 56,
           y: pos.y - 56,
@@ -54,7 +54,7 @@ export default function RainbowCursor() {
 
       {/* Inner Core (main cursor) */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-16 h-16 rounded-full blur-xl opacity-80 mix-blend-screen z-50"
+        className="pointer-events-none fixed top-0 left-0 w-20 h-20 rounded-full blur-xl opacity-50 mix-blend-screen z-50"
         animate={{
           x: pos.x - 32,
           y: pos.y - 32,

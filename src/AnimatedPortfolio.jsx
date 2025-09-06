@@ -10,7 +10,7 @@ import ProjectsCard from "./components/ProjectsCard";
 const PROFILE = {
   name: "Mushtaq Ahmad",
   role: "Full Stack Developer",
-  desc: " I Craft Delightful Web Experiences.",
+  desc: "  I Craft Delightful Web Experiences.",
   email: "mtaq075@gmail.com",
   location: "Karachi, Pakistan",
   socials: {
@@ -90,6 +90,7 @@ const typed = safeTyped?.replace(/undefined/gi, "");
     { label: "Home", href: "#home" },
     { label: "About", href: "#about" },
     { label: "Skills", href: "#skills" },
+    { label: "Education", href: "#educatoin" },
     { label: "Projects", href: "#projects" },
     { label: "Contact", href: "#contact" },
   ]), []);
@@ -105,10 +106,10 @@ const typed = safeTyped?.replace(/undefined/gi, "");
       <header className="sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mt-3" />
-          <div className={`flex items-center justify-between rounded-2xl px-4 py-3 shadow-md ${dark ? 'glass-dark' : 'glass'}`}>
+          <div className={`flex items-center justify-between rounded-2xl px-3 py-1 shadow-md ${dark ? 'glass-dark' : 'glass'}`}>
             <div className="flex items-center gap-2">
-              <Rocket className="h-6 w-6" />
-              <span className="font-semibold">{PROFILE.name}</span>
+             
+<video src="/logo.mp4" autoPlay loop muted playsInline className="h-20 w-20 rounded-full object-cover"></video>
             </div>
             <nav className="hidden md:flex items-center gap-6 text-sm">
               {navItems.map((n) => (
@@ -123,8 +124,8 @@ const typed = safeTyped?.replace(/undefined/gi, "");
         <Download className="h-4 w-4" /> Resume
         </motion.a>
 
-              <button onClick={() => setDark((d) => !d)} className="rounded-xl px-3 py-2 border border-slate-300 dark:border-slate-700">
-                {dark ? "Light" : "Dark"}
+              <button onClick={() => setDark((d) => !d)} className="rounded-xl px-3 py-2  border-slate-300 dark:border-slate-700">
+                {dark ? <img className="h-8 w-8" src="/day-mode.png"  /> : <img className="h-8 w-8" src="/night-mode.png"  /> }
               </button>
             </nav>
             <button className="md:hidden" onClick={() => setOpen((o) => !o)} aria-label="Menu">
@@ -156,7 +157,7 @@ const typed = safeTyped?.replace(/undefined/gi, "");
       </header>
 
       {/* HERO */}
-      <Section id="home" className="mx-auto max-w-6xl px-4 pt-16">
+      <Section id="home" className="mx-auto max-w-6xl px-4 pt-8">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -227,10 +228,10 @@ className="rounded-2xl px-5 py-3 border border-slate-300 dark:border-slate-700"
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1 }}
             className="relative"
           >
             <div className="aspect-square rounded-3xl shadow-xl overflow-hidden bg-gradient-to-br from-indigo-500/20 via-transparent to-fuchsia-500/20 flex items-center justify-center">
@@ -253,7 +254,7 @@ className="rounded-2xl px-5 py-3 border border-slate-300 dark:border-slate-700"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.9 }}
           className="grid lg:grid-cols-3 gap-8"
         >
           <div className="lg:col-span-2 space-y-4 ">
@@ -284,7 +285,12 @@ className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 gap-4 s
       </Section>
 
       {/* SKILLS */}
-      <Section id="skills" className="mx-auto max-w-6xl px-4 py-20">
+       <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9 }}
+           id="skills" className="mx-auto max-w-6xl px-4 py-20">
         <h2 className="text-3xl font-bold mb-8">Skills</h2>
         <div className="flex flex-wrap gap-3">
           {SKILLS.map((s) => (
@@ -294,20 +300,25 @@ className="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 gap-4 s
             </motion.span>
           ))}
         </div>
-      </Section>
+      </motion.section>
 
          {/* EDUCATION */}
-      <Section id="education" className="mx-auto max-w-6xl px-4 py-20">
+       <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9 }}
+           id="educatoin" className="mx-auto max-w-6xl px-4 py-20">
         <h2 className="text-3xl font-bold mb-8">Education</h2>
         <div className="flex flex-wrap gap-3">
           {EDUCATION.map((s) => (
-            <motion.span key={s}  whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
+            <motion.span key={s} whileHover={{ scale: 1.1, boxShadow: "0px 0px 20px rgba(59,130,246,0.7)" }}
             whileTap={{ scale: 0.9 }} className="rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2 text-sm">
               {s}
             </motion.span>
           ))}
         </div>
-      </Section>
+      </motion.section>
 
      {/* PROJECTS */}
 <Section id="projects" className="mx-auto max-w-6xl px-4 py-20">

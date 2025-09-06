@@ -3,15 +3,18 @@
 
 
  html { scroll-behavior: smooth; }
-        .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.6); }
-        .glass-dark { backdrop-filter: blur(10px); background: rgba(2,6,23,0.6); }
+        .glass { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.521); }
+        .glass-dark { backdrop-filter: blur(10px); background: rgba(2, 6, 23, 0.479); }
 
   body {
   cursor: url('/cursor.png') 16 16, auto;
+  
+  background: #030018;  /* fallback for old browsers */
+  
 }
 
 button:hover, a:hover {
-  cursor: url('/cursor.png') 16 16, pointer;
+  cursor: url('/hand.png') 16 16, pointer;
 }
 
 
