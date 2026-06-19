@@ -1,81 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function RainbowCursor() {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const target = useRef({ x: -100, y: -100 });
+  const current = useRef({ x: -100, y: -100 });
+  const raf = useRef(null);
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    const move = (e) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    if (!isFinePointer) return;
+
+    const onMove = (e) => {
+      target.current = { x: e.clientX, y: e.clientY };
+      setActive(true);
+    };
+    const onLeave = () => setActive(false);
+
+    const tick = () => {
+      const ease = 0.11;
+      current.current.x += (target.current.x - current.current.x) * ease;
+      current.current.y += (target.current.y - current.current.y) * ease;
+      setPos({ x: current.current.x, y: current.current.y });
+      raf.current = requestAnimationFrame(tick);
+    };
+
+    raf.current = requestAnimationFrame(tick);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.body.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      document.body.removeEventListener("mouseleave", onLeave);
+      if (raf.current) cancelAnimationFrame(raf.current);
+    };
   }, []);
 
+  if (!active) return null;
+
   return (
-    <>
-
- 
-      {/* Outer Glow (lagging trail) */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-20 h-20 rounded-full blur-2xl opacity-50 mix-blend-screen z-40"
-        animate={{
-          x: pos.x - 80,
-          y: pos.y - 80,
-          background: [
-            "radial-gradient(circle, #ff0080, transparent)",
-            "radial-gradient(circle, #39ff14, transparent)",
-            "radial-gradient(circle, #ffd200, transparent)",
-          ],
-        }}
-        transition={{
-          x: { type: "spring", damping: 40, stiffness: 300, delay: 0.15 },
-          y: { type: "spring", damping: 40, stiffness: 300, delay: 0.15 },
-          background: { duration: 6, repeat: Infinity, repeatType: "mirror" },
+    <div className="pointer-events-none fixed inset-0 z-[5] overflow-hidden" aria-hidden="true">
+      {/* Soft outer halo */}
+      <div
+        className="absolute rounded-full will-change-transform"
+        style={{
+          width: 120,
+          height: 120,
+          left: pos.x - 60,
+          top: pos.y - 60,
+          background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)",
+          filter: "blur(20px)",
+          opacity: 0.7,
         }}
       />
-
-      {/* Middle Glow */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-20 h-20 rounded-full blur-2xl opacity-50 mix-blend-screen z-50"
-        animate={{
-          x: pos.x - 56,
-          y: pos.y - 56,
-          background: [
-            "radial-gradient(circle, #00ffff, transparent)",
-            "radial-gradient(circle, #ff00ff, transparent)",
-            "radial-gradient(circle, #ffff00, transparent)",
-          ],
-        }}
-        transition={{
-          x: { type: "spring", damping: 40, stiffness: 300, delay: 0.08 },
-          y: { type: "spring", damping: 40, stiffness: 300, delay: 0.08 },
-          background: { duration: 6, repeat: Infinity, repeatType: "mirror" },
+      {/* Inner accent */}
+      <div
+        className="absolute rounded-full will-change-transform"
+        style={{
+          width: 48,
+          height: 48,
+          left: pos.x - 24,
+          top: pos.y - 24,
+          background: "radial-gradient(circle, rgba(168,85,247,0.35) 0%, rgba(236,72,153,0.08) 50%, transparent 70%)",
+          filter: "blur(8px)",
+          opacity: 0.85,
         }}
       />
-
-      {/* Inner Core (main cursor) */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-20 h-20 rounded-full blur-xl opacity-50 mix-blend-screen z-50"
-        animate={{
-          x: pos.x - 32,
-          y: pos.y - 32,
-          background: [
-            "radial-gradient(circle, #ffffff, #ff00ff, transparent)",
-            "radial-gradient(circle, #39ff14, #00ffff, transparent)",
-            "radial-gradient(circle, #ffd200, #ff0080, transparent)",
-          ],
-          boxShadow: [
-            "0 0 25px #ff00ff",
-            "0 0 25px #39ff14",
-            "0 0 25px #ffd200",
-          ],
-        }}
-        transition={{
-          x: { type: "spring", damping: 40, stiffness: 300 },
-          y: { type: "spring", damping: 40, stiffness: 300 },
-          background: { duration: 6, repeat: Infinity, repeatType: "mirror" },
-          boxShadow: { duration: 6, repeat: Infinity, repeatType: "mirror" },
+      {/* Tiny core dot */}
+      <div
+        className="absolute rounded-full will-change-transform"
+        style={{
+          width: 6,
+          height: 6,
+          left: pos.x - 3,
+          top: pos.y - 3,
+          background: "rgba(255,255,255,0.5)",
+          boxShadow: "0 0 12px rgba(168,85,247,0.6)",
         }}
       />
-    </>
+    </div>
   );
 }
